@@ -31,3 +31,4 @@ desktop.ini
 
 #Ignoring story images
 public/uploads/
+node_modules
