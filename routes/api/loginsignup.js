@@ -5,11 +5,13 @@ const passport = require('passport');
 /* GET home page. */
 
 router.post('/signup', function (req, res) {
-  passport.authenticate('local.signup', {
-    successRedirect: '/profile',
-    failureRedirect: '/',
-    failureFlash: true
-  })(req, res, next);
+  console.log(req.body);
+  res.send(req.body.data)
+  // passport.authenticate('local.signup', {
+  //   successRedirect: '/profile',
+  //   failureRedirect: '/',
+  //   failureFlash: true
+  // })(req, res, next);
 });
 
 router.post('/signin', function (req, res) {

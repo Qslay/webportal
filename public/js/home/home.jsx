@@ -12,33 +12,55 @@ class Home extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { email: {} };
+    this.state = {
+      email: {},
+      name: {},
+      username: {},
+      password: {}
+    };
 
     this.handleSignin = this.handleSignin.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
+
+    this.setName = this.setName.bind(this);
+    this.setEmail = this.setEmail.bind(this);
+    this.setUsername = this.setUsername.bind(this);
+    this.setPassword = this.setPassword.bind(this);
   }
-
-  componentDidMount() {
-    this.props.AllFetch();
-    console.log(this.props.item)
-  }
-
-  componentDidUpdate(prevProps, PrevState) {
-    console.log(this.props.item)
-
-    if (prevProps.item !== this.props.item) {
-      this.setState({
-        name: this.props.item
-      })
-    }
-    console.log('this', this.state);
-
-  }
-
 
   handleSignin(e) {
     e.preventDefault();
-    console.log('fhdshd');
+    let userSignup = {
+      name: this.state.name,
+      email: this.state.email,
+      username: this.state.username,
+      password: this.state.password,
+    }
+    this.props.signup(userSignup);
+  }
+
+  setName(e) {
+    this.setState({
+      name: e.target.value
+    })
+  }
+
+  setEmail(e) {
+    this.setState({
+      email: e.target.value
+    })
+  }
+
+  setUsername(e) {
+    this.setState({
+      username: e.target.value
+    })
+  }
+
+  setPassword(e) {
+    this.setState({
+      password: e.target.value
+    })
   }
 
   handleEmailChange() {
@@ -89,35 +111,34 @@ class Home extends React.Component {
             <Row>
               <div className="signup">
                 <form onSubmit={this.handleSignin}>
-                  <FormGroup controlId="text" bsSize="large">
+                  <FormGroup controlId="text" bsSize="small">
                     <FormLabel>Name</FormLabel>
                     <FormControl
-
+                      onChange={this.setName}
                     />
                   </FormGroup>
-                  <FormGroup controlId="email" bsSize="large">
+                  <FormGroup controlId="email" bsSize="small">
                     <FormLabel>Email</FormLabel>
                     <FormControl
-
+                      onChange={this.setEmail}
                     />
-                  </FormGroup><FormGroup controlId="text" bsSize="large">
+                  </FormGroup><FormGroup controlId="text" bsSize="small">
                     <FormLabel>Username</FormLabel>
                     <FormControl
-
+                      onChange={this.setUsername}
                     />
                   </FormGroup>
-                  <FormGroup controlId="password" bsSize="large">
+                  <FormGroup controlId="password" bsSize="small">
                     <FormLabel>Password</FormLabel>
                     <FormControl
-
+                      onChange={this.setPassword}
                     />
                   </FormGroup>
-                  <FormGroup controlId="password" bsSize="large">
+                  <FormGroup controlId="password" bsSize="small">
                     <FormLabel>Confirm Password</FormLabel>
-                    <FormControl
-
-                    />
+                    <FormControl />
                   </FormGroup>
+
                   <Button
                     block
                     bsSize="large"
