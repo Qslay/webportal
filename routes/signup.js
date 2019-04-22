@@ -7,15 +7,15 @@ var passport = require('passport');
 router.use(csrfProtection);
 
 router.get('/', csrfProtection, function (req, res, next) {
-  res.render('home/home', { title: 'Express', token: req.csrfToken() });
+  res.render('signup', { title: 'Express', token: req.csrfToken() });
 });
 
-router.post('/signup', passport.authenticate('local.signup', { failWithError: true, failureFlash: true }),
+router.post('/', passport.authenticate('local.signup', { failWithError: true, failureFlash: true }),
   function (req, res, next) {
     if (req.xhr) {
       return res.json(req.user);
     }
-    return res.json('/home');
+    return res.json('/profile');
   },
   function (err, req, res, next) {
     console.log('err', err);

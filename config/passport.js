@@ -20,22 +20,22 @@ passport.use('local.signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
-  User.findOne({ 'account.email': email }, function (err, user) {
+
+  User.findOne({ 'email': email }, function (err, user) {
     if (err) {
       return done(err);// return back eny errors
     }
-
+    console.log(user)
     if (user) { //return an error message if user is already has an account
-      req.session.errors = 'Email is already in use!';
-      return done(null, false, req.flash('error', 'Email is already in use!'));
+      return done(null, false, {message: 'Email is already in use!'});
     }
 
     //creating a new user
     const newUser = new User();
-    newUser.account.email = email;
-    newUser.account.password = newUser.encryptPassword(password);
-    newUser.details.name.first = req.body.firstname;
-    newUser.details.name.last = req.body.lastname;
+    newUser.email = email;
+    newUser.password = newUser.encryptPassword(password);
+    newUser.firstname = req.body.firstname;
+    newUser.lastname = req.body.lastname;
 
     newUser.save(function (err, result) {
       if (err) {
@@ -46,30 +46,30 @@ passport.use('local.signup', new LocalStrategy({
   })
 }));
 
-//implementation of the local stategy to signin
-passport.use('local.signin', new LocalStrategy({
-  usernameField: 'email',
-  passwordField: 'password',
-  passReqToCallback: true
-}, function (req, email, password, done) {
-  User.findOne({ 'account.email': email }, function (err, user) {
+// //implementation of the local stategy to signin
+// passport.use('local.signin', new LocalStrategy({
+//   usernameField: 'email',
+//   passwordField: 'password',
+//   passReqToCallback: true
+// }, function (req, email, password, done) {
+//   User.findOne({ 'account.email': email }, function (err, user) {
 
-    if (err) {
-      return done(err);
-    }
+//     if (err) {
+//       return done(err);
+//     }
 
-    //if no username is entered
-    if (!user) {
-      req.session.errors = 'User not found!';
-      return done(null, false, { message: 'no user found' });
-    }
+//     //if no username is entered
+//     if (!user) {
+//       req.session.errors = 'User not found!';
+//       return done(null, false, { message: 'no user found' });
+//     }
 
-    //if the password is incorrect
-    if (!user.validPassword(password)) {
-      req.session.errors = 'Incorrect password!';
-      return done(null, false, { message: 'Wrong password' });
-    }
+//     //if the password is incorrect
+//     if (!user.validPassword(password)) {
+//       req.session.errors = 'Incorrect password!';
+//       return done(null, false, { message: 'Wrong password' });
+//     }
 
-    return done(null, user);
-  })
-}));
+//     return done(null, user);
+//   })
+// }));

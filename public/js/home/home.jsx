@@ -16,7 +16,8 @@ class Home extends React.Component {
       email: {},
       name: {},
       username: {},
-      password: {}
+      password: {},
+      _csrf: ''
     };
 
     this.handleSignin = this.handleSignin.bind(this);
@@ -28,6 +29,15 @@ class Home extends React.Component {
     this.setPassword = this.setPassword.bind(this);
   }
 
+  componentDidMount() {
+    const root = document.querySelector('#csrf');
+    const token = root.getAttribute('data-content');
+    console.log(token);
+    this.setState({
+      _csrf: token
+    })
+  }
+
   handleSignin(e) {
     e.preventDefault();
     let userSignup = {
@@ -35,6 +45,7 @@ class Home extends React.Component {
       email: this.state.email,
       username: this.state.username,
       password: this.state.password,
+      _csrf: this.state._csrf
     }
     this.props.signup(userSignup);
   }
