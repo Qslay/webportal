@@ -17,7 +17,7 @@ const homeRouter = require('./routes/home');
 
 
 const logout = require('./routes/logout');
-const signup = require('./routes/signup');
+// const signup = require('./routes/signup');
 const api = require('./routes/api/texs');
 const authAPI = require('./routes/api/loginsignup');
 
@@ -54,7 +54,7 @@ app.use('/api/auth', authAPI);
 app.use('/api/test', api)
 
 
-app.use('/signup', signup);
+// app.use('/signup', signup);
 app.use('/logout', logout)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
