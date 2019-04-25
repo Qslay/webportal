@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, FormControl, Container, Row, Col, FormGroup, FormLabel } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux'
 import { AllFetch, signup } from '../actions/actionSet1.js'
@@ -36,6 +37,12 @@ class Home extends React.Component {
     this.setState({
       _csrf: token
     })
+  }
+
+  componentDidUpdate() {
+    if (this.state.signupFeedback) {
+      return <Redirect to={signupFeedback.data} />
+    }
   }
 
   handleSignin(e) {
@@ -172,11 +179,13 @@ class Home extends React.Component {
 Home.propTypes = {
   AllFetch: PropTypes.func.isRequired,
   signup: PropTypes.func.isRequired,
-  item: PropTypes.object
+  item: PropTypes.object,
+  signupFeedback: PropTypes.object
 }
 
 const mapStateToProps = state => ({
-  item: state.actionSet1.item
+  item: state.actionSet1.item,
+  signupFeedback: state.actionSet1.signupFeedback
 })
 
 export default connect(mapStateToProps, { AllFetch, signup })(Home);
