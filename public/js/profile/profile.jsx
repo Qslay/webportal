@@ -1,51 +1,71 @@
 'use strict';
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import NavBarComponent from '../nav/navBar.jsx'
 
-import { Button, FormControl, Container, Row, Col, FormGroup, FormLabel } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap'
 
 import { connect } from 'react-redux'
-import { fetchProfile } from '../actions/actionSet1.js'
 
 class Profile extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      csrf: ''
-    }
   }
-
   componentDidMount() {
-    const root = document.querySelector('#csrf');
-    const token = root.getAttribute('data-content');
-    this.setState({
-      _csrf: token
-    })
-    this.props.fetchProfile(token);
+
   }
 
   render() {
-    let profile = this.props.profile
-    console.log(profile);
     return (
-      <Container>
-        <p>Profile</p>
-        <p>{profile.email}</p> 
-      </Container>
+      <>
+        <NavBarComponent />
+        <Container>
+          <Row>
+            <Col xs='auto'>
+              <img src="/images/user/sample.png" alt="" />
+            </Col>
+          </Row>
+          <Row>
+
+            <Col xs='auto'>
+              <Form>
+                <FormGroup>
+                  <Label for='Email'>Email</Label>
+                  <Input type='email' name='email' id='email' ></Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for='Username'>Username</Label>
+                  <Input type='text' name='Username' id='Username' disabled ></Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for='Location'>Location</Label>
+                  <Input type='text' name='Location' id='Location' ></Input>
+                </FormGroup>
+                <Row form>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="exampleEmail">Email</Label>
+                      <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                    </FormGroup>
+                  </Col>
+                  <Col md={6}>
+                    <FormGroup>
+                      <Label for="examplePassword">Password</Label>
+                      <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              </Form>
+            </Col>
+
+
+          </Row>
+        </Container>
+      </>
     )
   }
 }
 
-Profile.propTypes = {
-  profile: PropTypes.object,
-  fetchProfile: PropTypes.func.isRequired
-}
 
-const mapStateToProps = state => ({
-  profile: state.actionSet1.profile,
-})
-
-export default connect(mapStateToProps, { fetchProfile })(Profile);
+export default connect()(Profile);

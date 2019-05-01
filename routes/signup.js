@@ -15,7 +15,7 @@ router.post('/', passport.authenticate('local.signup', { failWithError: true, fa
     if (req.xhr) {
       return res.json(req.user);
     }
-    return res.json('/profile');
+    return res.redirect('/home')
   },
   function (err, req, res, next) {
     console.log('err', err);

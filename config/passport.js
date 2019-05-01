@@ -46,30 +46,30 @@ passport.use('local.signup', new LocalStrategy({
   })
 }));
 
-// //implementation of the local stategy to signin
-// passport.use('local.signin', new LocalStrategy({
-//   usernameField: 'email',
-//   passwordField: 'password',
-//   passReqToCallback: true
-// }, function (req, email, password, done) {
-//   User.findOne({ 'account.email': email }, function (err, user) {
+//implementation of the local stategy to signin
+passport.use('local.signin', new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+  passReqToCallback: true
+}, function (req, email, password, done) {
+  User.findOne({ 'email': email }, function (err, user) {
 
-//     if (err) {
-//       return done(err);
-//     }
+    if (err) {
+      return done(err);
+    }
 
-//     //if no username is entered
-//     if (!user) {
-//       req.session.errors = 'User not found!';
-//       return done(null, false, { message: 'no user found' });
-//     }
+    //if no username is entered
+    if (!user) {
+      req.session.errors = 'User not found!';
+      return done(null, false, { message: 'no user found' });
+    }
 
-//     //if the password is incorrect
-//     if (!user.validPassword(password)) {
-//       req.session.errors = 'Incorrect password!';
-//       return done(null, false, { message: 'Wrong password' });
-//     }
+    //if the password is incorrect
+    if (!user.validPassword(password)) {
+      req.session.errors = 'Incorrect password!';
+      return done(null, false, { message: 'Wrong password' });
+    }
 
-//     return done(null, user);
-//   })
-// }));
+    return done(null, user);
+  })
+}));

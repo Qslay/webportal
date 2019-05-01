@@ -16,6 +16,8 @@ const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const profileRoute = require('./routes/profile');
 
+const signinRouter = require('./routes/signin')
+const signupRouter = require('./routes/signup')
 
 const logout = require('./routes/logout');
 // const signup = require('./routes/signup');
@@ -56,6 +58,9 @@ app.use('/api/auth', authAPI);
 app.use('/api/profile', profileAPI);
 app.use('/api/test', api)
 
+
+app.use('/signup', signupRouter);
+app.use('/signin', signinRouter)
 
 // app.use('/signup', signup);
 app.use('/logout', logout)

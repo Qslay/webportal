@@ -10,7 +10,7 @@ const User = require('../../models/user');
 
 router.get('/', csrfProtection, function (req, res, next) {
   try {
-    res.status(200).json(req.user);
+    res.render('profile/profile');
   } catch (e) {
     console.log(e);
 

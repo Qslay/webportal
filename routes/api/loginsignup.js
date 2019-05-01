@@ -10,11 +10,12 @@ router.get('/', csrfProtection, function (req, res, next) {
   res.render('home/home', { title: 'Express', token: req.csrfToken() });
 });
 
-router.post('/signup', passport.authenticate('local.signup', { failWithError: true, failureFlash: true }),
+router.post('/', passport.authenticate('local.signup', { failWithError: true, failureFlash: true }),
   function (req, res, next) {
     if (req.xhr) {
       return res.json(req.user);
     }
+    console.log('hehr');
     res.redirect('/profile')
   },
   function (err, req, res, next) {
