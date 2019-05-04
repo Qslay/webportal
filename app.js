@@ -15,6 +15,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const homeRouter = require('./routes/home');
 const profileRoute = require('./routes/profile');
+const menuRoute = require('./routes/menu');
 
 const signinRouter = require('./routes/signin')
 const signupRouter = require('./routes/signup')
@@ -24,6 +25,7 @@ const logout = require('./routes/logout');
 const api = require('./routes/api/texs');
 const authAPI = require('./routes/api/loginsignup');
 const profileAPI = require('./routes/api/profileAPI');
+const menuAPI = require('./routes/api/menuAPI');
 
 const app = express();
 
@@ -53,9 +55,11 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/home', homeRouter);
 app.use('/profile', profileRoute);
+app.use('/menu', menuRoute);
 
 app.use('/api/auth', authAPI);
 app.use('/api/profile', profileAPI);
+app.use('/api/menu', menuAPI);
 app.use('/api/test', api)
 
 

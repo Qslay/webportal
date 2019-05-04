@@ -44,22 +44,22 @@ class Profile extends React.Component {
                 </FormGroup>
                 <Row form>
                   <Col md={6}>
+
                     <FormGroup>
-                      <Label for="exampleEmail">Email</Label>
-                      <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                      <Label for="hoursFrom">Trading hours : From</Label>
+                      <Input type="text" name="hoursFrom" id="hoursFrom" placeholder="From" />
                     </FormGroup>
-                  </Col>
+                  </Col> 
                   <Col md={6}>
                     <FormGroup>
-                      <Label for="examplePassword">Password</Label>
-                      <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                    <Label for="hoursTo">To</Label>
+                      <Input type="text" name="hoursTo" id="hoursTo" placeholder="To" />
                     </FormGroup>
                   </Col>
                 </Row>
               </Form>
+              <Button color='success'>Update </Button>
             </Col>
-
-
           </Row>
         </Container>
       </>
