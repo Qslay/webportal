@@ -1,12 +1,14 @@
 import {
   FETCHALL,
   SIGNUP,
-  SIGNIN
+  SIGNIN, 
+  PROFILE_FETCH
 } from '../actions/types'
 
 const initialState = {
   item: {},
-  signupFeedback: {}
+  signupFeedback: {},
+  profile : {}
 }
 
 export default function (state = initialState, action) {
@@ -21,6 +23,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         signupFeedback: action.payload
+      }
+    case PROFILE_FETCH:
+      return{
+        ...state,
+        profile: action.payload.data
       }
 
     default:

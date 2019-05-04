@@ -20,22 +20,22 @@ passport.use('local.signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
-  User.findOne({ 'account.email': email }, function (err, user) {
+
+  User.findOne({ 'email': email }, function (err, user) {
     if (err) {
       return done(err);// return back eny errors
     }
-
+    console.log(user)
     if (user) { //return an error message if user is already has an account
-      req.session.errors = 'Email is already in use!';
-      return done(null, false, req.flash('error', 'Email is already in use!'));
+      return done(null, false, {message: 'Email is already in use!'});
     }
 
     //creating a new user
     const newUser = new User();
-    newUser.account.email = email;
-    newUser.account.password = newUser.encryptPassword(password);
-    newUser.details.name.first = req.body.firstname;
-    newUser.details.name.last = req.body.lastname;
+    newUser.email = email;
+    newUser.password = newUser.encryptPassword(password);
+    newUser.name = req.body.name;
+    newUser.username = req.body.username;
 
     newUser.save(function (err, result) {
       if (err) {
@@ -52,7 +52,7 @@ passport.use('local.signin', new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
-  User.findOne({ 'account.email': email }, function (err, user) {
+  User.findOne({ 'email': email }, function (err, user) {
 
     if (err) {
       return done(err);

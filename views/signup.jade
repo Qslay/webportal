@@ -1,0 +1,37 @@
+//-
+  * signup.jade
+  * Extends the layout of the base UI (layout.jade)
+  *
+  * Implements the sign up form.
+  *
+  * @author: Quang, Tim, Malith
+  * @created: 15/05/2018
+  * @modified: 28/05/2018
+
+extends layout
+
+block content
+ 
+      div(class='col-lg-8 col-sm-10 mx-auto')
+        h3(class='pb-2') Create your account
+        form(method='post', action='/signup', name='myform')
+          input(type='hidden', name='_csrf', value='#{token}')
+          div(class='form-group row')
+            div(class='col')
+              label(for='firstname') First Name
+              input(name='firstname', id='firstname', type='text', class='form-control form-control-sm')
+            div(class='col')
+              label(for='lastname') Last Name
+              input(name='lastname', id='lastname', type='text', class='form-control form-control-sm')
+          div(class='form-group')
+            label(for='email') Email
+            input(name='email', id='email', type='email', class='form-control form-control-sm')
+          div(class='form-group row')
+            div(class='col')
+              label(for='password') Password
+              input.form-control(name='password',id='password', type='password',ng-model='password', class='form-control form-control-sm')
+            div(class='col')
+              label(for='verifypassword') Verify Password
+              input.form-control(name='verifypassword',id='verifypassword', type='password', class='form-control form-control-sm')
+          button(class='btn btn-primary', type='submit' id='signup-button') Sign up
+          

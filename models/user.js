@@ -4,20 +4,16 @@ var bcrypt = require('bcrypt-nodejs');
 
 
 var personSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   name: {
-    type: String, required: true
+    type: String
   },
   email: {
-    type: String, required: true
+    type: String
   },
   username: {
     type: String
   },
   password: {
-    type: String
-  },
-  imagepath: {
     type: String
   },
   location: {
