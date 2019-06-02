@@ -4,17 +4,34 @@ import React from 'react';
 
 import NavBarComponent from '../nav/navBar.jsx'
 
-import { Container, Row, Col, Button } from 'reactstrap'
+import { Container, Row, Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Label, Form, FormGroup } from 'reactstrap'
 
 import Card from '../card/card.jsx'
-
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
+import { create_menu } from '../actions/menuActions.js'
 
 class Home extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      modal: false,
+      modalHeader: '',
+    };
+    this.toggle = this.toggle.bind(this);
+    this.setHead = this.setHead.bind(this);
+  }
 
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+    }));
+  }
+  setHead(head) {
+    this.setState({
+      modalHeader: head
+    })
   }
 
   render() {
@@ -31,7 +48,7 @@ class Home extends React.Component {
             {/* Create Category Section */}
             <Col xs={4}>
               <Row>
-                <Col xs={9}>Add a new Menu</Col>
+                <Col xs={9}>Menu</Col>
                 <Col xs={3}>
                   <i class="material-icons">add</i>
                 </Col>
@@ -41,9 +58,9 @@ class Home extends React.Component {
               <Card cardTitle={'New Menu2'} />
 
               <Row>
-                <br/>
+                <br />
                 <Col xs={12}>
-                  <Button>Add Menu</Button>
+                  <Button onClick={() => (this.toggle(), this.setHead('Menu'))}>Add Menu</Button>
                 </Col>
               </Row>
             </Col>
@@ -51,7 +68,7 @@ class Home extends React.Component {
             {/* Create Item section */}
             <Col xs={4}>
               <Row>
-                <Col xs={9}>Add a new Item</Col>
+                <Col xs={9}>Category</Col>
                 <Col xs={3}>
                   <i class="material-icons">add</i>
                 </Col>
@@ -60,9 +77,9 @@ class Home extends React.Component {
               <br />
               <Card cardTitle={'New Item2'} />
               <Row>
-                <br/>
+                <br />
                 <Col xs={12}>
-                  <Button>Add Item</Button>
+                  <Button onClick={() => (this.toggle(), this.setHead('Category'))}>Add Item</Button>
                 </Col>
               </Row>
             </Col>
@@ -71,6 +88,25 @@ class Home extends React.Component {
             {/* Adding additional info section */}
             <Col xs={4}>3</Col>
           </Row>
+
+          <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+            <ModalHeader toggle={this.toggle}>New {this.state.modalHeader}</ModalHeader>
+            <ModalBody>
+              <Form>
+                <FormGroup>
+                  <Label for="Menu" sm={3}>Add Menu</Label>
+                  <Col sm={10}>
+                    <Input type="text" name="Menu" id="Menu" ></Input>
+                  </Col>
+                </FormGroup>
+              </Form>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={this.toggle}>Create {this.state.modalHeader}</Button>{' '}
+              <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+            </ModalFooter>
+          </Modal>
+
         </Container>
       </>
     );
@@ -78,5 +114,14 @@ class Home extends React.Component {
   }
 }
 
+Home.prototype = {
+  create_menu: PropTypes.func.isRequired,
 
-export default connect()(Home);
+  menuItem: PropTypes.object
+}
+
+const mapStateToProps = state => ({
+  menuItem: state.menuActions.menuItem,
+})
+
+export default connect(mapStateToProps, { create_menu })(Home);
