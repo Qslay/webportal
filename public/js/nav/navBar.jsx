@@ -29,6 +29,7 @@ class NavBarComponent extends React.Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -53,7 +54,7 @@ class NavBarComponent extends React.Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/components/"><i class="material-icons">
+                <NavLink href="/menu"><i class="material-icons">
                   list_alt</i>
                 </NavLink>
               </NavItem>
