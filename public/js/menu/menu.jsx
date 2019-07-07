@@ -34,7 +34,8 @@ class Home extends React.Component {
     this.state = {
       modal: false,
       modalHeader: '',
-      value: ''
+      value: '',
+      Menus: []
     };
 
     this.toggle = this.toggle.bind(this);
@@ -51,8 +52,9 @@ class Home extends React.Component {
     }))
   }
 
-  componentDidUpdate(prevProps, prevState){
-    
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.state);
+    console.log(this.props.menuItem);
   }
 
   handleChange(event) {

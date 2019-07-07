@@ -10,17 +10,21 @@ const Category = require('../../models/category');
 const Item = require('../../models/item');
 
 const _ = require('lodash');
+const l = require('./tools/loginCheck');
 
-
-router.get('/getmenu/:id', async function (req, res, next) {
+router.get('/getmenu/:id', l.isLoggedIn, async function (req, res, next) {
   try {
     let id = req.params.id;
     if (req.isAuthenticated()) {
       let _menu = await Menu
-        .findOne({ user: id })
+        .findOne({
+          user: id
+        })
         .populate({
           path: 'categories',
-          populate: { path: 'items' }
+          populate: {
+            path: 'items'
+          }
         }).exec();
       if (!_.isEmpty(_menu)) {
         res.status(200).json(_menu);
@@ -32,48 +36,46 @@ router.get('/getmenu/:id', async function (req, res, next) {
   }
 });
 
-router.post('/', async function (req, res) {
+router.post('/', l.isLoggedIn, async function (req, res) {
   try {
     console.log(req.body);
     let _menuName = req.body.menu;
     let _data = {
       name: _menuName,
-      publish: false
+      publish: false,
+      user:req.user.id
     };
     let _menu = await Menu.create(_data);
     if (!_.isEmpty(_menu)) {
       res.status(200).json(_menu);
     }
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
 });
 
-router.post('/category/', async function (req, res) {
+router.post('/category/', l.isLoggedIn, async function (req, res) {
   try {
     console.log(req.body);
     let _categoryName = req.body.category;
 
-    let _data ={
-      name : _categoryName
+    let _data = {
+      name: _categoryName
     };
 
     let _category = await Category.create(_data);
-    if(!_.isEmpty(_category)){
+    if (!_.isEmpty(_category)) {
       res.status(200).json(_category);
     }
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
 });
 
-router.post('/item/:id', function (req, res) {
+router.post('/item/:id', l.isLoggedIn, function (req, res) {
   try {
 
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
 });

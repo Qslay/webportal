@@ -4,8 +4,7 @@ node_modules
 data/
 .idea/
 *.iml
-
-public/dist/*
+public
 
 # Ignore all Logs
 *.log
@@ -30,6 +29,4 @@ desktop.ini
 #Allow minimised CSS
 !*.min.css
 
-#Ignoring story images
-public/uploads/
 
